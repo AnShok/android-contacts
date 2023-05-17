@@ -18,17 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import ru.yandex.practicum.contacts.R;
 import ru.yandex.practicum.contacts.databinding.ItemContactBinding;
+import ru.yandex.practicum.contacts.presentation.base.BaseListDiffCallback;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
     private final AsyncListDiffer<ContactUi> differ = new AsyncListDiffer<>(
             new AdapterListUpdateCallback(this),
-            new AsyncDifferConfig.Builder<>(new ListDiffCallback()).build()
+            new AsyncDifferConfig.Builder<>(new BaseListDiffCallback<ContactUi>()).build()
     );
 
     @NonNull
@@ -92,8 +94,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                     .into(binding.contactPhoto);
         }
     }
-
-    static class ListDiffCallback extends DiffUtil.ItemCallback<ContactUi> {
+        // Класс ListDiffCallback убрали, тк заменили на обощенный дженерик класс BaseListDiffCallback
+    /* static class ListDiffCallback extends BaseListDiffCallback<ContactUi> {
 
         @Override
         public boolean areItemsTheSame(@NonNull ContactUi oldItem, @NonNull ContactUi newItem) {
@@ -110,5 +112,5 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         public Object getChangePayload(@NonNull ContactUi oldItem, @NonNull ContactUi newItem) {
             return newItem;
         }
-    }
+    }*/
 }
